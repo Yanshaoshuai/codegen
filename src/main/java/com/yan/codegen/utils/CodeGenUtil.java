@@ -44,6 +44,7 @@ import java.util.zip.ZipOutputStream;
 public class CodeGenUtil {
 
     private final String ENTITY_JAVA_VM = "Entity.java.vm";
+    private final String DTO_JAVA_VM = "DTO.java.vm";
     private final String MAPPER_JAVA_VM = "Mapper.java.vm";
     private final String SERVICE_JAVA_VM = "Service.java.vm";
     private final String SERVICE_IMPL_JAVA_VM = "ServiceImpl.java.vm";
@@ -54,6 +55,7 @@ public class CodeGenUtil {
     private List<String> getTemplates() {
         List<String> templates = new ArrayList<>();
         templates.add("template/Entity.java.vm");
+        templates.add("template/DTO.java.vm");
         templates.add("template/Mapper.java.vm");
         templates.add("template/Mapper.xml.vm");
         templates.add("template/Service.java.vm");
@@ -239,7 +241,11 @@ public class CodeGenUtil {
         }
 
         if (template.contains(ENTITY_JAVA_VM)) {
-            return packagePath + "entity" + File.separator + className + ".java";
+            return packagePath + "pojo" + File.separator + className + ".java";
+        }
+
+        if (template.contains(DTO_JAVA_VM)) {
+            return packagePath + "pojo" + File.separator + "dto"+File.separator+className + "DTO.java";
         }
 
         if (template.contains(MAPPER_JAVA_VM)) {

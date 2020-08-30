@@ -2,7 +2,7 @@ package ${package}.${moduleName}.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Component;
-import ${package}.${moduleName}.entity.${className};
+import ${package}.${moduleName}.pojo.${className};
 
 /**
  * <p>

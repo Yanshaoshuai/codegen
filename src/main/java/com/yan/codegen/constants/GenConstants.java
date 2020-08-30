@@ -17,5 +17,5 @@ public interface GenConstants {
     /**
      * 签名
      */
-    String SIGNATURE = "xkcoding代码生成";
+    String SIGNATURE = "codegen";
 }

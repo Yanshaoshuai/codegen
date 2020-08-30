@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.NoArgsConstructor;
+import java.io.Serializable;
 /**
  * <p>
  * ${comments}
@@ -27,18 +28,20 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-@TableName("${tableName}")
-@EqualsAndHashCode(callSuper = true)
-public class ${className} extends Model<${className}> {
+@ApiModel(description = "${className}DTO")
+public class ${className}DTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty(value = "分页编号")
+    private Integer pageNum;
+
+    @ApiModelProperty(value = "分页尺寸")
+    private Integer pageSize;
   #foreach ($column in $columns)
     /**
      * $column.comments
      */
-    #if($column.columnName == $pk.columnName)
-    @TableId
-    #end
+    @ApiModelProperty(value = "$column.comments")
     private $column.attrType $column.lowerAttrName;
   #end
 
