@@ -25,26 +25,32 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>spring-boot-demo-codegen</artifactId>
+    <groupId>com.yan</groupId>
+    <artifactId>spring-boot-codegen</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-
-    <name>spring-boot-demo-codegen</name>
-    <description>Demo project for Spring Boot</description>
+    <name>spring-boot-codegen</name>
+    <description>Codegen project for Spring Boot</description>
 
     <parent>
-        <groupId>com.yan</groupId>
-        <artifactId>spring-boot-demo</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.0.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository test -->
     </parent>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <spring.boot.version>2.1.0.RELEASE</spring.boot.version>
+        <mysql.version>8.0.12</mysql.version>
+        <hutool.version>5.0.0</hutool.version>
+        <guava.version>28.1-jre</guava.version>
+        <user.agent.version>1.20</user.agent.version>
+        <mybatisplus.version>3.4.0</mybatisplus.version>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -76,8 +82,8 @@
         <!--velocity代码生成使用模板 -->
         <dependency>
             <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity</artifactId>
-            <version>1.7</version>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>2.1</version>
         </dependency>
 
         <dependency>
@@ -91,14 +97,17 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
+        <!-- hutool工具类 -->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
         </dependency>
-
+        <!-- guava工具类 -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
         </dependency>
 
         <dependency>
@@ -154,7 +163,31 @@ date=LocalDateTime
 datetime=LocalDateTime
 timestamp=LocalDateTime
 ```
+Mapper.xml中jdbcType配置
+```properties
+tinyint=TINYINT
+smallint=SMALLINT
+mediumint=MEDIUMINT
+int=INTEGER
+integer=INTEGER
+bigint=BIGINT
+float=FLOAT
+double=DOUBLE
+decimal=DECIMAL
+bit=BIT
+char=CHAR
+varchar=VARCHAR
+tinytext=VARCHAR
+text=VARCHAR
+mediumtext=VARCHAR
+longtext=VARCHAR
+date=DATE
+datetime=TIMESTAMP
+timestamp=TIMESTAMP
+blob=BLOB
+longblob=LONGBLOB
 
+```
 ### 3.3. CodeGenUtil.java
 
 ```java
