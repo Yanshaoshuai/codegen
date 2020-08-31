@@ -40,6 +40,7 @@ public class ${className} extends Model<${className}> {
     #if($column.columnName == $pk.columnName)
     @TableId(type = IdType.AUTO)
     #end
+    @ApiModelProperty(value = "$column.comments")
     private $column.attrType $column.lowerAttrName;
   #end
 

@@ -79,9 +79,6 @@ public class ${className}Controller {
      */
     @PostMapping
     @ApiOperation(value = "新增${comments}", notes = "新增${comments}")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "${classname}", value = "${classname}实体", required = true)
-    })
     public R save${className}(@RequestBody ${className} ${classname}){
       log.info("save${className}-->{}",${classname});
       return R.success(${classname}Service.save(${classname}));
@@ -94,9 +91,6 @@ public class ${className}Controller {
      */
     @PutMapping
     @ApiOperation(value = "修改${comments}", notes = "修改${comments}")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "${pk.lowerAttrName}", value = "主键id", required = true)
-    })
     public R update${className}(@RequestBody ${className} ${classname}){
       log.info("update${className}-->{}",${classname});
       return R.success(${classname}Service.updateById(${classname}));
