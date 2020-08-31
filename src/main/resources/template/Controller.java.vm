@@ -79,6 +79,9 @@ public class ${className}Controller {
      */
     @PostMapping
     @ApiOperation(value = "新增${comments}", notes = "新增${comments}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "${classname}", value = "${classname}实体", required = true)
+    })
     public R save${className}(@RequestBody ${className} ${classname}){
       log.info("save${className}-->{}",${classname});
       return R.success(${classname}Service.save(${classname}));
