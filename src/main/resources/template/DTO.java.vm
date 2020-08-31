@@ -1,4 +1,4 @@
-package ${package}.${moduleName}.entity;
+package ${package}.${moduleName}.pojo.dto;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 #if(${hasBigDecimal})
 import java.math.BigDecimal;
 #end
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,14 +18,10 @@ import java.io.Serializable;
  * <p>
  * ${comments}
  * </p>
- *
- * @package:  ${package}.${moduleName}.entity
  * @description: ${comments}
  * @author: ${author}
  * @date: Created in ${datetime}
  * @copyright: Copyright (c) ${year}
- * @version: V1.0
- * @modified: ${author}
  */
 @Data
 @NoArgsConstructor
@@ -33,7 +30,7 @@ public class ${className}DTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "分页编号")
-    private Integer pageNum;
+    private Integer pageNumber;
 
     @ApiModelProperty(value = "分页尺寸")
     private Integer pageSize;

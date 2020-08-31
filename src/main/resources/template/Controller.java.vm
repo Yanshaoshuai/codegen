@@ -2,10 +2,12 @@ package ${package}.${moduleName}.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import ${package}.${moduleName}.common.PageResult;
 import ${package}.${moduleName}.common.R;
 import ${package}.${moduleName}.pojo.${className};
 import ${package}.${moduleName}.pojo.dto.${className}DTO;
 import ${package}.${moduleName}.service.${className}Service;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import io.swagger.annotations.Api;
@@ -29,25 +31,29 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequestMapping("/${pathName}")
-@Api(description = "${className}Controller", tags = {"${comments}"})
+@Api("${className}Controller")
 public class ${className}Controller {
     @Autowired
     private  ${className}Service ${classname}Service;
 
     /**
      * 分页查询${comments}
-     * @param page 分页对象
-     * @param ${classname} ${comments}
+     * @param ${classname}DTO 数据传输对象
      * @return R
      */
     @GetMapping("/page")
     @ApiOperation(value = "分页查询${comments}", notes = "分页查询${comments}")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "page", value = "分页参数", required = true),
-            @ApiImplicitParam(name = "${classname}", value = "查询条件", required = true)
+            @ApiImplicitParam(name = "${classname}DTO", value = "数据传输对象", required = true)
     })
-    public R list${className}(Page page, ${className} ${classname}) {
-      return R.success(${classname}Service.page(page,Wrappers.query(${classname})));
+    public R list${className}(${className}DTO ${classname}DTO) {
+        log.info("list${className}-->{}",${classname}DTO);
+        Page page=new Page(${classname}DTO.getPageNumber(),${classname}DTO.getPageSize());
+        ${className} ${classname}=new ${className}();
+        BeanUtils.copyProperties(${classname}DTO,${classname});
+        ${classname}Service.page(page, Wrappers.query(${classname}));
+        PageResult<${className}> pageResult=new PageResult(page.getTotal(),page.getCurrent(),page.getSize(),page.getRecords());
+        return R.success(pageResult);
     }
 
 
@@ -62,6 +68,7 @@ public class ${className}Controller {
             @ApiImplicitParam(name = "${pk.lowerAttrName}", value = "主键id", required = true)
     })
     public R get${className}(@PathVariable("${pk.lowerAttrName}") ${pk.attrType} ${pk.lowerAttrName}){
+      log.info("get${className}-->{}",${pk.lowerAttrName});
       return R.success(${classname}Service.getById(${pk.lowerAttrName}));
     }
 
@@ -73,21 +80,22 @@ public class ${className}Controller {
     @PostMapping
     @ApiOperation(value = "新增${comments}", notes = "新增${comments}")
     public R save${className}(@RequestBody ${className} ${classname}){
+      log.info("save${className}-->{}",${classname});
       return R.success(${classname}Service.save(${classname}));
     }
 
     /**
      * 修改${comments}
-     * @param ${pk.lowerAttrName} id
      * @param ${classname} ${comments}
      * @return R
      */
-    @PutMapping("/{${pk.lowerAttrName}}")
+    @PutMapping
     @ApiOperation(value = "修改${comments}", notes = "修改${comments}")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "${pk.lowerAttrName}", value = "主键id", required = true)
     })
-    public R update${className}(@PathVariable ${pk.attrType} ${pk.lowerAttrName}, @RequestBody ${className} ${classname}){
+    public R update${className}(@RequestBody ${className} ${classname}){
+      log.info("update${className}-->{}",${classname});
       return R.success(${classname}Service.updateById(${classname}));
     }
 
@@ -102,6 +110,7 @@ public class ${className}Controller {
             @ApiImplicitParam(name = "${pk.lowerAttrName}", value = "主键id", required = true)
     })
     public R delete${className}(@PathVariable ${pk.attrType} ${pk.lowerAttrName}){
+      log.info("delete${className}-->{}",${pk.lowerAttrName});
       return R.success(${classname}Service.removeById(${pk.lowerAttrName}));
     }
 

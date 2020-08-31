@@ -1,5 +1,5 @@
-package ${package}.${moduleName}.entity;
-
+package ${package}.${moduleName}.pojo;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 #if(${hasBigDecimal})
 import java.math.BigDecimal;
 #end
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -37,7 +38,7 @@ public class ${className} extends Model<${className}> {
      * $column.comments
      */
     #if($column.columnName == $pk.columnName)
-    @TableId
+    @TableId(type = IdType.AUTO)
     #end
     private $column.attrType $column.lowerAttrName;
   #end
