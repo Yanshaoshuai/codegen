@@ -42,7 +42,7 @@ import java.util.zip.ZipOutputStream;
 @Slf4j
 @UtilityClass
 public class CodeGenUtil {
-
+    //todo
     private final String ENTITY_JAVA_VM = "Entity.java.vm";
     private final String DTO_JAVA_VM = "DTO.java.vm";
     private final String MAPPER_JAVA_VM = "Mapper.java.vm";
@@ -54,6 +54,7 @@ public class CodeGenUtil {
 
     private List<String> getTemplates() {
         List<String> templates = new ArrayList<>();
+        //todo
         templates.add("template/Entity.java.vm");
         templates.add("template/DTO.java.vm");
         templates.add("template/Mapper.java.vm");
@@ -61,7 +62,6 @@ public class CodeGenUtil {
         templates.add("template/Service.java.vm");
         templates.add("template/ServiceImpl.java.vm");
         templates.add("template/Controller.java.vm");
-
         templates.add("template/api.js.vm");
         return templates;
     }
@@ -239,7 +239,7 @@ public class CodeGenUtil {
         if (StrUtil.isNotBlank(packageName)) {
             packagePath += packageName.replace(".", File.separator) + File.separator + moduleName + File.separator;
         }
-
+        //todo
         if (template.contains(ENTITY_JAVA_VM)) {
             return packagePath + "pojo" + File.separator + className + ".java";
         }
