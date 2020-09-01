@@ -43,10 +43,7 @@ public class ${className}Controller {
      */
     @GetMapping("/page")
     @ApiOperation(value = "分页查询${comments}", notes = "分页查询${comments}")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "${classname}DTO", value = "数据传输对象", required = true)
-    })
-    public R list${className}(${className}DTO ${classname}DTO) {
+    public R list${className}(@ModelAttribute(name = "数据传输对象") ${className}DTO ${classname}DTO) {
         log.info("list${className}-->{}",${classname}DTO);
         Page page=new Page(${classname}DTO.getPageNumber(),${classname}DTO.getPageSize());
         ${className} ${classname}=new ${className}();
@@ -65,7 +62,7 @@ public class ${className}Controller {
     @GetMapping("/{${pk.lowerAttrName}}")
     @ApiOperation(value = "通过id查询${comments}", notes = "通过id查询${comments}")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "${pk.lowerAttrName}", value = "主键id", required = true)
+            @ApiImplicitParam(name = "${pk.lowerAttrName}", value = "主键id", required = true,paramType="path")
     })
     public R get${className}(@PathVariable("${pk.lowerAttrName}") ${pk.attrType} ${pk.lowerAttrName}){
       log.info("get${className}-->{}",${pk.lowerAttrName});
@@ -104,7 +101,7 @@ public class ${className}Controller {
     @DeleteMapping("/{${pk.lowerAttrName}}")
     @ApiOperation(value = "删除${comments}", notes = "删除${comments}")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "${pk.lowerAttrName}", value = "主键id", required = true)
+            @ApiImplicitParam(name = "${pk.lowerAttrName}", value = "主键id", required = true,paramType="path")
     })
     public R delete${className}(@PathVariable ${pk.attrType} ${pk.lowerAttrName}){
       log.info("delete${className}-->{}",${pk.lowerAttrName});
