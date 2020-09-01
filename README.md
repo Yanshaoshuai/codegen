@@ -1,136 +1,30 @@
-# spring-boot-demo-codegen
+# spring-boot-codegen
 
 > 此 demo 主要演示了 Spring Boot 使用**模板技术**生成代码，并提供前端页面，可生成 Entity/Mapper/Service/Controller 等代码。
 
 ## 1. 主要功能
 
 1. 使用 `velocity` 代码生成
-2. 暂时支持mysql数据库的代码生成
+2. 暂时支持mysql数据库的代码生成(增删改查,分页)
 3. 提供前端页面展示，并下载代码压缩包
 
 > 注意：① Entity里使用lombok，简化代码 ② Mapper 和 Service 层集成 Mybatis-Plus 简化代码
 
 ## 2. 运行
 
-1. 运行 `SpringBootDemoCodegenApplication` 启动项目
+1. 运行 `SpringBootCodegenApplication` 启动项目
 2. 打开浏览器，输入 http://localhost:8080/demo/index.html
 3. 输入查询条件，生成代码
 
-## 3. 关键代码
+## 3. 使用说明
 
-### 3.1. pom.xml
+### 3.1建议
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.yan</groupId>
-    <artifactId>spring-boot-codegen</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <name>spring-boot-codegen</name>
-    <description>Codegen project for Spring Boot</description>
-
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.0.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository test -->
-    </parent>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <spring.boot.version>2.1.0.RELEASE</spring.boot.version>
-        <mysql.version>8.0.12</mysql.version>
-        <hutool.version>5.0.0</hutool.version>
-        <guava.version>28.1-jre</guava.version>
-        <user.agent.version>1.20</user.agent.version>
-        <mybatisplus.version>3.4.0</mybatisplus.version>
-    </properties>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-undertow</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-        </dependency>
-
-        <!--velocity代码生成使用模板 -->
-        <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity-engine-core</artifactId>
-            <version>2.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-text</artifactId>
-            <version>1.6</version>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-
-        <!-- hutool工具类 -->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>${hutool.version}</version>
-        </dependency>
-        <!-- guava工具类 -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <finalName>spring-boot-demo-codegen</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-
-</project>
-```
+建议配合[architect-demo](https://github.com/Yanshaoshuai/architect-demo)SpringBoot脚手架项目一同使用,[architect-demo](https://github.com/Yanshaoshuai/architect-demo)SpringBoot脚手架项提供了SpringBoot项目的一些基础环境,生成的代码直接复制到对应路径即可一键运行
 
 ### 3.2. 代码生成器配置
+
+实体类中javaType配置
 
 ```properties
 #代码生成器，配置信息
@@ -159,7 +53,7 @@ tinytext=String
 text=String
 mediumtext=String
 longtext=String
-date=LocalDateTime
+date=LocalDate
 datetime=LocalDateTime
 timestamp=LocalDateTime
 ```
@@ -190,6 +84,8 @@ longblob=LONGBLOB
 ```
 ### 3.3. CodeGenUtil.java
 
+支持自定义模板,只需复制模板到template目录下,然后修改为符合规范的格式(可以取到的属性值可以参考其他模板),在[CodeGenUtil.java](./src/main/java/com/yan/codegen/utils/CodeGenUtil.java)中的//todo位置加上对应逻辑,即可实现自定义文件的生成。
+
 ```java
 /**
  * <p>
@@ -207,7 +103,7 @@ longblob=LONGBLOB
 @Slf4j
 @UtilityClass
 public class CodeGenUtil {
-
+	//todo 
     private final String ENTITY_JAVA_VM = "Entity.java.vm";
     private final String MAPPER_JAVA_VM = "Mapper.java.vm";
     private final String SERVICE_JAVA_VM = "Service.java.vm";
@@ -215,9 +111,10 @@ public class CodeGenUtil {
     private final String CONTROLLER_JAVA_VM = "Controller.java.vm";
     private final String MAPPER_XML_VM = "Mapper.xml.vm";
     private final String API_JS_VM = "api.js.vm";
-
+	
     private List<String> getTemplates() {
         List<String> templates = new ArrayList<>();
+        //todo 
         templates.add("template/Entity.java.vm");
         templates.add("template/Mapper.java.vm");
         templates.add("template/Mapper.xml.vm");
@@ -398,7 +295,7 @@ public class CodeGenUtil {
         if (StrUtil.isNotBlank(packageName)) {
             packagePath += packageName.replace(".", File.separator) + File.separator + moduleName + File.separator;
         }
-
+		//todo 
         if (template.contains(ENTITY_JAVA_VM)) {
             return packagePath + "entity" + File.separator + className + ".java";
         }
