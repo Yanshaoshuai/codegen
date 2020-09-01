@@ -1,6 +1,8 @@
 # spring-boot-codegen
 
 > 此 demo 主要演示了 Spring Boot 使用**模板技术**生成代码，并提供前端页面，可生成 Entity/Mapper/Service/Controller 等代码。
+>
+> spring-boot-demo-codegen的完善版本
 
 ## 1. 主要功能
 
